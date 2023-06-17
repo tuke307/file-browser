@@ -1,0 +1,68 @@
+/* Add your CSS styles here */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.login-box {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-box label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+}
+
+.login-box input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#logout-button {
+   position:absolute; 
+   top:10px; 
+   right:10px
+}
+
+
+#notification {
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 0, 0, 0.299);
+    color: white;
+    text-align: center;
+    padding: 16px;
+    transition: top 0.5s ease-in-out;
+  }

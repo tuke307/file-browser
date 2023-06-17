@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="styles.css" type="text/css" rel="stylesheet"> <!-- Bindet die CSS-Datei ein -->
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+          <h1>Login</h1>
+          <form id="login-form">
+              <label for="username">Benutzername:</label><br>
+              <input type="text" id="username" name="username"><br>
+              <label for="password">Passwort:</label><br>
+              <input type="password" id="password" name="password"><br><br>
+              <input type="submit" value="Submit">
+          </form> 
+        </div>
+    </div>
+
+    <p id="message"></p>
+    <div id="notification"></div>
+
+    <script type="module" src="login.js"></script> <!-- Bindet die JavaScript-Datei ein -->
+</body>
+</html>
