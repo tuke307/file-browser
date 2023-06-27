@@ -3,6 +3,13 @@ import { showNotification, toggleVisibility } from "./utils.js";
 
 const loginContainer = document.getElementById("login-container");
 const fileContainer = document.getElementById("file-container");
+const backButton = document.getElementById("backBtn");
+
+const fileInput = document.getElementById("fileInput");
+const uploadForm = document.getElementById("uploadForm");
+
+const createDirForm = document.getElementById("createDirForm");
+const dirNameInput = document.getElementById("dirName");
 
 let currentPath = [];
 
@@ -34,6 +41,18 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   }
 });
 
+backButton.addEventListener("click", goBack);
+
+uploadForm.addEventListener("submit", uploadFile);
+
+createDirForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const dirName = document.getElementById("dirName").value;
+  await createDirectory(dirName);
+});
+
+
+
 
 
 async function login(username, password) {
@@ -63,7 +82,6 @@ async function login(username, password) {
     toggleVisibility(loginContainer);
     toggleVisibility(fileContainer);
 
-    updateBreadcrumb();
     fetchFiles();
   } else if (response.status === 401) {
     showNotification("Please enter a valid username and password");
@@ -90,66 +108,79 @@ async function logout() {
   }
 }
 
-function updateBreadcrumb() {
-  let breadcrumb = document.getElementById("breadcrumb");
-  breadcrumb.innerHTML = "";
-  for (let i = 0; i < currentPath.length; i++) {
-    let pathPart = currentPath[i];
-    let button = document.createElement("button");
-    button.innerText = pathPart;
-    button.addEventListener("click", function () {
-      goToPath(i);
-    });
-    breadcrumb.appendChild(button);
-  }
-}
-
 function updateFileList(files) {
   let fileList = document.getElementById("file-list");
   fileList.innerHTML = "";
+
   for (let file of files) {
-    let li = document.createElement("li");
+    let row = document.createElement("tr");
+
+    let nameCell = document.createElement("td");
     let nameSpan = document.createElement("span");
     nameSpan.innerText = file.Name;
-    li.appendChild(nameSpan);
-
+    nameCell.appendChild(nameSpan);
     if (file.Type === "dir") {
-      let openButton = document.createElement("button");
-      openButton.innerText = "Öffnen";
+      nameSpan.classList.add("dir");
+    } else {
+      nameSpan.classList.add("file-name");
+    }
+    row.appendChild(nameCell);
+
+    let typeCell = document.createElement("td");
+    let typeSpan = document.createElement("span");
+    typeSpan.innerText = file.Type;
+    typeSpan.classList.add("file-type");
+    typeCell.appendChild(typeSpan);
+    row.appendChild(typeCell);
+
+    let actionsCell = document.createElement("td");
+    actionsCell.classList.add("actions");
+    if (file.Type === "dir") {
+      let openButton = createIconButton("fa-folder-open", "Öffnen");
       openButton.addEventListener("click", function () {
         goToPath(currentPath.length, file.Name);
       });
-      li.appendChild(openButton);
+      actionsCell.appendChild(openButton);
     } else if (
       file.Type === "video/mp4" ||
       file.Type === "audio/mpeg" ||
       file.Type.startsWith("image/")
     ) {
-      let viewButton = document.createElement("button");
-      viewButton.innerText = "Ansehen";
+      let viewButton = createIconButton("fa-eye", "Ansehen");
       viewButton.addEventListener("click", function () {
         viewFile(file.Name);
       });
-      li.appendChild(viewButton);
+      actionsCell.appendChild(viewButton);
     }
 
-    let downloadButton = document.createElement("button");
-    downloadButton.innerText = "Herunterladen";
+    let downloadButton = createIconButton("fa-download", "Herunterladen");
     downloadButton.addEventListener("click", function () {
       downloadFile(file.Name);
     });
-    li.appendChild(downloadButton);
+    actionsCell.appendChild(downloadButton);
 
-    let deleteButton = document.createElement("button");
-    deleteButton.innerText = "Löschen";
+    let deleteButton = createIconButton("fa-trash-alt", "Löschen");
     deleteButton.addEventListener("click", function () {
       deleteFile(file.Name);
     });
-    li.appendChild(deleteButton);
+    actionsCell.appendChild(deleteButton);
 
-    fileList.appendChild(li);
+    row.appendChild(actionsCell);
+
+    fileList.appendChild(row);
   }
 }
+
+function createIconButton(iconClass, tooltip) {
+  let button = document.createElement("button");
+  button.classList.add("icon-button");
+  button.title = tooltip;
+  let icon = document.createElement("i");
+  icon.classList.add("fas", iconClass);
+  button.appendChild(icon);
+  return button;
+}
+
 
 
 function goToPath(index, name) {
@@ -158,9 +189,16 @@ function goToPath(index, name) {
   } else {
     currentPath.splice(index + 1);
   }
-  updateBreadcrumb();
   fetchFiles();
 }
+
+function goBack() {
+  if (currentPath.length > 0) {
+    currentPath.pop();
+    fetchFiles();
+  }
+}
+
 
 function fetchFiles() {
   let path = currentPath.join("/");
@@ -175,30 +213,119 @@ function fetchFiles() {
 
 function viewFile(name) {
   let path = [...currentPath, name].join("/");
-  window.open(`${BASE_URL}/${path}`);
+  fetch(`${BASE_URL}/${path}`, {
+    headers: {
+      Authorization: `Basic ${sessionStorage.getItem("token")}`
+    }
+  })
+    .then(response => response.blob())
+    .then(data => {
+      // Create a URL for the file blob
+      const fileUrl = URL.createObjectURL(data);
+      
+      // Open the file in a new tab/window
+      window.open(fileUrl, "_blank");
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
+
 
 function downloadFile(name) {
   let path = [...currentPath, name].join("/");
-  window.open(`${BASE_URL}/${path}?format=base64`);
+  fetch(`${BASE_URL}/${path}`, {
+    headers: {
+      Authorization: `Basic ${sessionStorage.getItem("token")}`
+    }
+  })
+    .then(response => response.blob())
+    .then(data => {
+      // Create a download link
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(data);
+      downloadLink.download = name;
+      
+      // Programmatically click on the download link
+      downloadLink.click();
+      
+      // Clean up the URL object
+      URL.revokeObjectURL(downloadLink.href);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
-function deleteFile(name) {
+async function deleteFile(name) {
   if (confirm(`Möchtest du die Datei "${name}" wirklich löschen?`)) {
     let path = [...currentPath, name].join("/");
-    let xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `${BASE_URL}/${path}`);
-    xhr.setRequestHeader(
-      "Authorization",
-      "Basic " + sessionStorage.getItem("access_token")
-    );
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        fetchFiles();
-      } else {
-        helpers.showNotification("Fehler beim Löschen der Datei");
+    const response = await fetch(`${BASE_URL}/${path}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Basic ${sessionStorage.getItem("token")}`
       }
-    };
-    xhr.send();
+    });
+    if (response.ok) {
+      fetchFiles();
+    } else {
+      showNotification("Fehler beim Löschen der Datei");
+    }
+  }
+}
+
+
+function uploadFile(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  const file = fileInput.files[0]; // Get the selected file
+
+  if (file) {
+    const formData = new FormData(); // Create a new FormData object
+    formData.append("newfile", file); // Append the file to the FormData object
+
+    let path = currentPath.join("/");
+    fetch(`${BASE_URL}/${path}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${sessionStorage.getItem("token")}`
+      },
+      body: formData // Set the FormData object as the request body
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Process the response data, if needed
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+}
+
+async function createDirectory(dirName) {
+  const body = new URLSearchParams({
+    type: "dir",
+  });
+
+  const path = currentPath.join("/");
+  const response = await fetch(`${BASE_URL}/${path}/${dirName}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${sessionStorage.getItem("token")}`,
+    },
+    body: body,
+  });
+
+  if (response.ok) {
+    fetchFiles();
+    dirNameInput.value = "";
+  } else {
+    showNotification("Failed to create directory.");
   }
 }
