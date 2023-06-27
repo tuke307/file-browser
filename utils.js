@@ -6,3 +6,11 @@ export function showNotification(message) {
       notification.style.top = "-100px";
     }, 3000);
   }
+
+export function toggleVisibility(element) {
+    if (element.style.display === "none") {
+        element.style.display = "block";
+    } else {
+        element.style.display = "none";
+    }
+  }

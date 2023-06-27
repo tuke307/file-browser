@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link href="styles.css" type="text/css" rel="stylesheet"> <!-- Bindet die CSS-Datei ein -->
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-box">
-          <h1>Login</h1>
-          <form id="login-form">
-              <label for="username">Benutzername:</label><br>
-              <input type="text" id="username" name="username"><br>
-              <label for="password">Passwort:</label><br>
-              <input type="password" id="password" name="password"><br><br>
-              <input type="submit" value="Submit">
-          </form> 
-        </div>
+    <div class="container" id="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+
+    <div class="container" id="file-container" style="display: none;">
+        <h1>File Manager</h1>
+
+        <div id="breadcrumb"></div>
+        <ul id="file-list"></ul>
+       
+        <button id="logoutBtn">Logout</button>
     </div>
 
     <p id="message"></p>
     <div id="notification"></div>
 
-    <script type="module" src="login.js"></script> <!-- Bindet die JavaScript-Datei ein -->
+    <script src="utils.js" type="module"></script>
+    <script src="config.js" type="module"></script>
+    <script src="index.js" type="module"></script>
 </body>
+
 </html>
