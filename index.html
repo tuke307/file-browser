@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Login</title>
@@ -37,13 +37,15 @@
         </table>
 
         <div id="uploadFormContainer">
-            <h2>Upload Files</h2>
-            <form id="uploadForm">
-                <input type="file" id="fileInput" name="file" required>
-                <button type="submit">Upload</button>
-              </form>      
+            <div class="upload-btn-wrapper">
+                <label for="fileInput" class="btn-text">
+                    <i class="fas fa-upload upload-icon"></i>
+                    <span class="btn-text">upload</span>
+                </label>
+                <input type="file" id="fileInput" name="file" style="display: none;" required>
+            </div>
         </div>
-    
+
         <div id="createDirFormContainer">
             <h2>Create Directory</h2>
             <form id="createDirForm">
@@ -53,14 +55,29 @@
         </div>
 
         <button id="logoutBtn" class="logout-btn" title="logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        
+        <div id="viewer-container" style="display: none;">
+            <iframe id="viewer"></iframe>
+            <div class="viewer-actions">
+                <button id="cancelBtn" class="cancel-btn">Discard Changes</button>
+                <button id="saveBtn" class="save-btn">Save</button>
+            </div>
+            <div id="textEditorContainer">
+                <textarea id="textEditor" class="text-editor" readonly></textarea>
+            </div>
+        </div>
+        
     </div>
+    
 
     <p id="message"></p>
     <div id="notification"></div>
 
     <script src="utils.js" type="module"></script>
     <script src="config.js" type="module"></script>
-    <script src="index.js" type="module"></script>
+    <script src="events.js" type="module"></script>
+    <script src="api.js" type="module"></script>
+
 </body>
 
 </html>
