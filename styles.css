@@ -39,8 +39,6 @@ li {
   margin-bottom: 5px;
 }
 
-
-
 /* Benachrichtigungsstil */
 
 #notification {
@@ -55,11 +53,14 @@ li {
   transition: top 0.5s ease-in-out;
 }
 
-
 /* Login-Stile */
 
 #login-container {
   text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 #loginForm {
@@ -71,6 +72,7 @@ li {
 
 #file-container {
   text-align: center;
+  position: relative;
 }
 
 #file-table {
@@ -97,16 +99,17 @@ li {
   gap: 5px;
 }
 
-
-
 .logout-btn,
-.back-btn {
+.back-btn,
+#createDirButton,
+.upload-btn-wrapper {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   color: #fff;
   cursor: pointer;
+  background-color: #007bff;
 }
 
 .logout-btn {
@@ -146,3 +149,197 @@ li {
   color: #007bff;
 }
 
+#createDirPopout {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 1; /* Ensure the popout appears above other elements */
+  display: none; /* Hide the popout by default */
+  left: calc(100% - 300px);
+  right: auto;
+  top: 0;
+}
+
+#createDirForm {
+  display: flex;
+  align-items: center;
+}
+
+#createDirForm input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+#createDirForm button[type="submit"],
+#createDirForm button[type="button"] {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#createDirForm button[type="submit"] {
+  background-color: #007bff;
+}
+
+#createDirForm button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#createDirForm button[type="button"] {
+  background-color: #dc3545;
+}
+
+#createDirForm button[type="button"]:hover {
+  background-color: #b30019;
+}
+
+#uploadFormContainer .upload-btn-wrapper {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+#uploadFormContainer .upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#uploadFormContainer .btn-text {
+  display: inline-block;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+#uploadFormContainer .upload-icon {
+  margin-right: 5px;
+}
+
+#uploadFormContainer .btn-text:hover {
+  background-color: #0056b3;
+}
+
+#button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+#button-container > div {
+  margin-right: 10px;
+}
+
+#file-container > #button-container {
+  position: static;
+}
+
+.upload-btn-wrapper {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-icon {
+  margin-right: 5px;
+}
+
+#createDirButton {
+  margin-right: 10px;
+  position: relative;
+}
+
+#createDirButton:hover + #createDirPopout,
+#createDirPopout:hover {
+  display: block;
+}
+
+/* Adjust the placement of the popout */
+#createDirPopout.left {
+  left: auto;
+  right: calc(100% + 10px);
+  top: 0;
+}
+
+
+/* Additional Styling */
+
+#login-container {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#loginForm label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#loginForm button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#loginForm button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.save-dir-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff; /* Blue color for save button */
+  cursor: pointer;
+}
+
+.cancel-dir-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #dc3545; /* Red color for cancel button */
+  cursor: pointer;
+}

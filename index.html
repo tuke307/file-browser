@@ -25,6 +25,27 @@
 
         <button id="backBtn" class="back-btn" title="back"><i class="fas fa-arrow-left"></i> Back</button>
 
+        <div id="button-container">
+            <div id="uploadFormContainer">
+                <div class="upload-btn-wrapper">
+                    <label for="fileInput" class="btn-text">
+                        <i class="fas fa-upload upload-icon"></i>
+                    </label>
+                    <input type="file" id="fileInput" name="file" style="display: none;" required>
+                </div>
+            </div>
+            <div id="createDirFormContainer">
+                <button id="createDirButton" class="create-dir-btn" title="Create Directory">
+                    <i class="fas fa-folder-plus"></i>
+                </button>
+                <div id="createDirPopout" class="popout" style="display: none;">
+                    <input type="text" id="dirName" placeholder="Directory Name" required>
+                    <button id="saveDirButton" class="save-dir-btn"><i class="fas fa-floppy-disk"></i></button>
+                    <button id="cancelDirButton" class="cancel-dir-btn"><i class="fas fa-xmark"></i></button>
+                </div>
+            </div>
+        </div>
+
         <table id="file-table">
             <thead>
                 <tr>
@@ -36,47 +57,47 @@
             <tbody id="file-list"></tbody>
         </table>
 
-        <div id="uploadFormContainer">
-            <div class="upload-btn-wrapper">
-                <label for="fileInput" class="btn-text">
-                    <i class="fas fa-upload upload-icon"></i>
-                    <span class="btn-text">upload</span>
-                </label>
-                <input type="file" id="fileInput" name="file" style="display: none;" required>
-            </div>
-        </div>
-
-        <div id="createDirFormContainer">
-            <h2>Create Directory</h2>
-            <form id="createDirForm">
-                <input type="text" id="dirName" placeholder="Directory Name" required>
-                <button type="submit"><i class="fas fa-folder-plus"></i> Create</button>
-            </form>
-        </div>
 
         <button id="logoutBtn" class="logout-btn" title="logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        
-        <div id="viewer-container" style="display: none;">
-            <iframe id="viewer"></iframe>
+
+        <div id="text-view-container" style="display: none;">
             <div class="viewer-actions">
                 <button id="cancelBtn" class="cancel-btn">Discard Changes</button>
                 <button id="saveBtn" class="save-btn">Save</button>
             </div>
             <div id="textEditorContainer">
-                <textarea id="textEditor" class="text-editor" readonly></textarea>
+                <textarea id="textEditor" class="text-editor"></textarea>
             </div>
         </div>
-        
+
+        <div id="image-view-container" style="display: none;">
+            <img id="imageViewer" class="media-viewer" src="" alt="">
+        </div>
+
+        <div id="video-view-container" style="display: none;">
+            <video id="videoViewer" class="media-viewer" src="" controls></video>
+        </div>
+
+        <div id="audio-view-container" style="display: none;">
+            <audio id="audioViewer" class="media-viewer" src="" controls></audio>
+        </div>
+
+        <div id="pdf-view-container" style="display: none;">
+            <iframe id="pdfViewer" class="media-viewer" src="" frameborder="0"></iframe>
+        </div>
     </div>
-    
+
 
     <p id="message"></p>
     <div id="notification"></div>
 
+    <script src="config.js"></script>
+    <script src="elements.js"></script>
     <script src="utils.js" type="module"></script>
-    <script src="config.js" type="module"></script>
+
     <script src="events.js" type="module"></script>
     <script src="api.js" type="module"></script>
+    <script src="filemanager.js" type="module"></script>
 
 </body>
 
