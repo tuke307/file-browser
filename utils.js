@@ -10,3 +10,12 @@ export function showNotification(message) {
     element.style.display = visible ? "block" : "none";
   }
   
+
+  // hide all views
+export function hideAllViews() {
+  toggleVisibility(imageViewContainer, false);
+  toggleVisibility(videoViewContainer, false);
+  toggleVisibility(audioViewContainer, false);
+  toggleVisibility(pdfViewContainer, false);
+  toggleVisibility(textViewContainer, false);
+}

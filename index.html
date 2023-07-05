@@ -62,8 +62,8 @@
 
         <div id="text-view-container" style="display: none;">
             <div class="viewer-actions">
-                <button id="cancelBtn" class="cancel-btn">Discard Changes</button>
-                <button id="saveBtn" class="save-btn">Save</button>
+                <button id="cancelEditBtn" class="cancel-btn">Discard Changes</button>
+                <button id="saveEditBtn" class="save-btn">Save</button>
             </div>
             <div id="textEditorContainer">
                 <textarea id="textEditor" class="text-editor"></textarea>
@@ -83,7 +83,7 @@
         </div>
 
         <div id="pdf-view-container" style="display: none;">
-            <iframe id="pdfViewer" class="media-viewer" src="" frameborder="0"></iframe>
+            <iframe id="pdfViewer" class="media-viewer" src="" title="PDF Viewer"></iframe>
         </div>
     </div>
 
@@ -94,6 +94,7 @@
     <script src="config.js"></script>
     <script src="elements.js"></script>
     <script src="utils.js" type="module"></script>
+    <script src="authentication.js" type="module"></script>
 
     <script src="events.js" type="module"></script>
     <script src="api.js" type="module"></script>

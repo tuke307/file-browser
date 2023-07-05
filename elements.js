@@ -26,8 +26,8 @@ const saveDirButton = document.getElementById("saveDirButton");
 const cancelDirButton = document.getElementById("cancelDirButton");
 
 // TextView + Editor
-const cancelButton = document.getElementById("cancelBtn");
-const saveButton = document.getElementById("saveBtn");
+const cancelEditButton = document.getElementById("cancelEditBtn");
+const saveEditButton = document.getElementById("saveEditBtn");
 const textViewContainer = document.getElementById("text-view-container");
 const textEditor = document.getElementById("textEditor");
 
