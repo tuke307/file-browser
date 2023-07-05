@@ -15,7 +15,7 @@ loginForm.addEventListener("submit", async (e) => {
 
   let response = await Api.login(username, password);
 
-  if (response.ok) {
+  if (response?.status === 200) {
     // otherwise, username and password would be visible in the URL
     window.history.replaceState({}, document.title, "/");
 
@@ -24,7 +24,7 @@ loginForm.addEventListener("submit", async (e) => {
     toggleVisibility(fileContainer, true);
 
     await fetchFiles();
-  } else if (response.status === 401) {
+  } else if (response?.status === 401) {
     showNotification("Please enter a valid username and password");
   } else {
     showNotification("Database error. Please try again later.");
@@ -36,13 +36,17 @@ logoutButton.addEventListener("click", async (e) => {
 
   const response = await Api.logout();
 
-  if (response.ok) {
+  if (response?.ok) {
     // empty form
     usernameInput.value = "";
     passwordInput.value = "";
 
     toggleVisibility(fileContainer, false);
     toggleVisibility(loginContainer, true);
+  } else if (response?.status === 401) {
+    showNotification("Token expired. Please log in again.");
+  } else {
+    showNotification("Database error. Please try again later.");
   }
 });
 
@@ -59,11 +63,15 @@ fileInput.addEventListener("change", async (e) => {
 
   const response = await Api.uploadFile(file);
 
-  if (response.ok) {
+  if (response?.ok) {
     await fetchFiles();
+  } else if (response?.status === 401) {
+    showNotification("Token expired. Please log in again.");
   } else {
-    showNotification("Error uploading file.");
+    showNotification("Database error. Please try again later.");
   }
+
+  fileInput.value = "";
 });
 
 createDirButton.addEventListener("click", () => {
@@ -80,12 +88,14 @@ saveDirButton.addEventListener("click", async (e) => {
 
     const response = await Api.createDirectory(path);
 
-    if (response.ok) {
+    if (response?.ok) {
       dirNameInput.value = "";
       toggleVisibility(createDirPopout, false);
       await fetchFiles();
+    } else if (response?.status === 401) {
+      showNotification("Token expired. Please log in again.");
     } else {
-      showNotification("Failed to create directory.");
+      showNotification("Database error. Please try again later.");
     }
   }
 });
@@ -110,12 +120,14 @@ saveButton.addEventListener("click", async (e) => {
 
   const response = await Api.uploadFile(path, selectedFile);
 
-  if (response.ok) {
+  if (response?.ok) {
     selectedFile = null;
     textEditor.value = "";
     toggleVisibility(textViewContainer, true);
+  } else if (response?.status === 401) {
+    showNotification("Token expired. Please log in again.");
   } else {
-    showNotification("Error saving file. Please try again.");
+    showNotification("Database error. Please try again later.");
   }
 });
 
@@ -208,6 +220,7 @@ function createActionsCell(file) {
     editButton.addEventListener("click", async function () {
       const path = [...currentPath, file.Name].join("/");
 
+      hideAllViews();
       const response = await Api.editTextFile(path);
 
       if (response.ok) {
@@ -271,10 +284,12 @@ function createActionsCell(file) {
     if (confirm("Are you sure you want to delete this file?")) {
       const response = await Api.deleteItem(path);
 
-      if (response.ok) {
+      if (response?.ok) {
         await fetchFiles();
+      } else if (response?.status === 401) {
+        showNotification("Token expired. Please log in again.");
       } else {
-        showNotification("Error deleting file. Please try again.");
+        showNotification("Database error. Please try again later.");
       }
     }
   });
@@ -321,11 +336,13 @@ async function fetchFiles() {
   let path = currentPath.join("/");
   const response = await Api.fetchFiles(path);
 
-  if (response.ok) {
+  if (response?.ok) {
     hideAllViews();
 
     files = await response.json();
     await updateFileList(files);
+  } else if (response?.status === 401) {
+    showNotification("Token expired. Please log in again.");
   } else {
     showNotification("Database error. Please try again later.");
   }
