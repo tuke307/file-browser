@@ -60,33 +60,10 @@ export async function fetchFiles(path) {
   }
 }
 
-export async function viewFile(path) {
-  try {
-    return await fetch(`${BASE_URL}/${path}`, {
-      headers: {
-        Authorization: `Basic ${sessionStorage.getItem("token")}`,
-      },
-    });
-  } catch (error) {
-    console.error("API ERROR:", error);
-  }
-}
-
-export async function editTextFile(path) {
-  try {
-    return await fetch(`${BASE_URL}/${path}`, {
-      headers: {
-        Authorization: `Basic ${sessionStorage.getItem("token")}`,
-      },
-    });
-  } catch (error) {
-    console.error("API ERROR:", error);
-  }
-}
-
 export async function downloadFile(path) {
   try {
     return await fetch(`${BASE_URL}/${path}`, {
+      method: "GET",
       headers: {
         Authorization: `Basic ${sessionStorage.getItem("token")}`,
       },
@@ -112,7 +89,7 @@ export async function deleteItem(path) {
 export async function uploadFile(path, file) {
 
   const formData = new FormData();
-  formData.append("newFile", file, file.Name);
+  formData.append("newFile", file, file.name);
 
   try {
     return await fetch(`${BASE_URL}/${path}`, {

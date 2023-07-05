@@ -107,7 +107,7 @@ export async function viewFile(file) {
   const path = [...currentPath, file.Name].join("/");
 
   hideAllViews();
-  const response = await Api.viewFile(path);
+  const response = await Api.downloadFile(path);
 
   if (response.ok) {
     const contentType = response.headers.get("Content-Type");
@@ -140,14 +140,14 @@ export async function editTextFile(file) {
   const path = [...currentPath, file.Name].join("/");
 
   hideAllViews();
-  const response = await Api.editTextFile(path);
+  const response = await Api.downloadFile(path);
 
   if (response.ok) {
     const contentType = response.headers.get("Content-Type");
     if (contentType.startsWith("text/")) {
-      const content = await response.text();
-
-      selectedFile = file;
+      selectedFile = await response.blob();
+      selectedFile.Name = file.Name;
+      const content = await selectedFile.text();
 
       textEditor.value = content;
       toggleVisibility(textViewContainer, true);
@@ -262,12 +262,16 @@ export async function createDirectory(dirName) {
 export async function saveFile() {
   let path = [...currentPath, selectedFile.Name].join("/");
 
-  const response = await Api.uploadFile(path, selectedFile);
+  // change the text value of selectedFile blob to the textEditor value
+  let newFile = new Blob([textEditor.value], { type: "text/plain" });
+  newFile.name = selectedFile.Name;
+
+  const response = await Api.uploadFile(path, newFile);
 
   if (response?.ok) {
     selectedFile = null;
     textEditor.value = "";
-    toggleVisibility(textViewContainer, true);
+    toggleVisibility(textViewContainer, false);
   } else if (response?.status === 401) {
     showNotification("Token expired. Please log in again.");
   } else {
@@ -286,10 +290,11 @@ export function resetPath() {
 }
 
 export async function uploadFile(file) {
-  const response = await Api.uploadFile(file);
+  let path = [...currentPath, file.name].join("/");
+  const response = await Api.uploadFile(path, file);
 
   if (response?.ok) {
-    await Filemanager.fetchFiles();
+    await fetchFiles();
   } else if (response?.status === 401) {
     showNotification("Token expired. Please log in again.");
   } else {
