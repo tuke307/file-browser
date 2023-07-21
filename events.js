@@ -28,6 +28,11 @@ saveDirButton.addEventListener("click", async () => await Filemanager.createDire
 
 cancelDirButton.addEventListener("click", () => toggleVisibility(createDirPopout, false));
 
-cancelEditButton.addEventListener("click", async () => await cancelFileEdit());
+createTextFileButton.addEventListener("click", async () => await Filemanager.createTextFile());
+
+cancelEditButton.addEventListener("click", async () => await Filemanager.cancelFileEdit());
 
 saveEditButton.addEventListener("click", async () => await Filemanager.saveFile());
+
+// override browser history back button
+window.addEventListener("popstate", async () => await Filemanager.goBack());

@@ -12,7 +12,7 @@ const fileContainer = document.getElementById("file-container");
 const logoutButton = document.getElementById("logoutBtn");
 const backButton = document.getElementById("backBtn");
 const fileList = document.getElementById("file-list");
-
+const pathView = document.getElementById("pathView");
 
 // File Upload
 const fileInput = document.getElementById("fileInput");
@@ -26,6 +26,7 @@ const saveDirButton = document.getElementById("saveDirButton");
 const cancelDirButton = document.getElementById("cancelDirButton");
 
 // TextView + Editor
+const createTextFileButton = document.getElementById("createTextFileButton");
 const cancelEditButton = document.getElementById("cancelEditBtn");
 const saveEditButton = document.getElementById("saveEditBtn");
 const textViewContainer = document.getElementById("text-view-container");

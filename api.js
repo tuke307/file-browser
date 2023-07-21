@@ -89,7 +89,7 @@ export async function deleteItem(path) {
 export async function uploadFile(path, file) {
 
   const formData = new FormData();
-  formData.append("newFile", file, file.name);
+  formData.append("newFile", file, file.Name);
 
   try {
     return await fetch(`${BASE_URL}/${path}`, {

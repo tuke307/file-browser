@@ -222,6 +222,12 @@ export async function goBack() {
 }
 
 export async function fetchFiles() {
+  // update browser history
+  window.history.pushState({}, "", `?path=${currentPath.join("/")}`);
+  // show last directory in path
+  pathView.innerText = currentPath[currentPath.length - 1] || "root";
+
+
   let path = currentPath.join("/");
   const response = await Api.fetchFiles(path);
 
@@ -264,7 +270,7 @@ export async function saveFile() {
 
   // change the text value of selectedFile blob to the textEditor value
   let newFile = new Blob([textEditor.value], { type: "text/plain" });
-  newFile.name = selectedFile.Name;
+  newFile.Name = selectedFile.Name;
 
   const response = await Api.uploadFile(path, newFile);
 
@@ -272,6 +278,9 @@ export async function saveFile() {
     selectedFile = null;
     textEditor.value = "";
     toggleVisibility(textViewContainer, false);
+
+    // only for creating text files
+    await fetchFiles();
   } else if (response?.status === 401) {
     showNotification("Token expired. Please log in again.");
   } else {
@@ -302,4 +311,21 @@ export async function uploadFile(file) {
   }
 
   fileInput.value = "";
+}
+
+export async function createTextFile() {
+  
+  let fileName = prompt("Please enter a file name:");
+
+  if (fileName) {
+    hideAllViews();
+  
+    textEditor.value = null;
+    toggleVisibility(textViewContainer, true);
+
+    selectedFile = new Blob([null], { type: "text/plain" });
+    selectedFile.Name = fileName;
+  } else {
+    showNotification("Please enter a valid file name.");
+  }
 }
