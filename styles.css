@@ -83,20 +83,57 @@ li {
 
 #file-table th,
 #file-table td {
-  padding: 8px;
+  padding: 12px;
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
 #file-table th {
   font-weight: bold;
+  background-color: #f1f1f1;
 }
 
 #file-table td.actions {
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
+}
+
+/* Style the action buttons */
+#file-table td.actions button {
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: grey;
+  cursor: pointer;
+}
+
+#file-table td.actions button:hover {
+  background-color: rgb(161, 137, 137);
+}
+
+#file-table td.actions button:active {
+  background-color: rgb(96, 81, 81);
+}
+
+.path-and-back {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#path-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+}
+
+#pathView {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .logout-btn,
@@ -120,7 +157,7 @@ li {
 }
 
 .back-btn {
-  background-color: #007bff;
+  margin-right: 10px;
 }
 
 #logoutBtn {
@@ -239,16 +276,15 @@ li {
 
 #button-container {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   margin-bottom: 10px;
 }
 
 #button-container > div {
-  margin-right: 10px;
-}
-
-#file-container > #button-container {
-  position: static;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .upload-btn-wrapper {
@@ -256,6 +292,7 @@ li {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  margin-right: 10px; 
 }
 
 .upload-btn-wrapper input[type="file"] {
@@ -272,7 +309,6 @@ li {
 }
 
 #createDirButton {
-  margin-right: 10px;
   position: relative;
 }
 
@@ -287,7 +323,6 @@ li {
   right: calc(100% + 10px);
   top: 0;
 }
-
 
 /* Additional Styling */
 
@@ -319,22 +354,22 @@ li {
   background-color: #0056b3;
 }
 
-.save-dir-btn {
+.save-btn {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   color: #fff;
-  background-color: #007bff; /* Blue color for save button */
+  background-color: #007bff;
   cursor: pointer;
 }
 
-.cancel-dir-btn {
+.cancel-btn {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   color: #fff;
-  background-color: #dc3545; /* Red color for cancel button */
+  background-color: #dc3545; 
   cursor: pointer;
 }

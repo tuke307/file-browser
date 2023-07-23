@@ -4,7 +4,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -23,10 +23,12 @@
     <div class="container" id="file-container" style="display: none;">
         <h1>File Manager</h1>
 
-        <button id="backBtn" class="back-btn" title="back"><i class="fas fa-arrow-left"></i> Back</button>
-
-        <div id="path-container">
-            <p id="pathView"></p>
+        <div class="path-and-back">
+            <button id="backBtn" class="back-btn" title="back"><i class="fas fa-arrow-left"></i> Back</button>
+    
+            <div id="path-container">
+                <p id="pathView"></p>
+            </div>
         </div>
 
         <div id="button-container">
@@ -44,13 +46,13 @@
                 </button>
                 <div id="createDirPopout" class="popout" style="display: none;">
                     <input type="text" id="dirName" placeholder="Directory Name" required>
-                    <button id="saveDirButton" class="save-dir-btn"><i class="fas fa-floppy-disk"></i></button>
-                    <button id="cancelDirButton" class="cancel-dir-btn"><i class="fas fa-xmark"></i></button>
+                    <button id="saveDirButton" class="save-btn"><i class="fas fa-floppy-disk"></i></button>
+                    <button id="cancelDirButton" class="cancel-btn"><i class="fas fa-xmark"></i></button>
                 </div>
             </div>
             <div id="createTextFileFormContainer">
                 <button id="createTextFileButton" class="create-file-btn" title="Create Textfile">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas fa-file-circle-plus"></i>
                 </button>
             </div>
         </div>
@@ -71,8 +73,8 @@
 
         <div id="text-view-container" style="display: none;">
             <div class="viewer-actions">
-                <button id="cancelEditBtn" class="cancel-btn">Discard Changes</button>
-                <button id="saveEditBtn" class="save-btn">Save</button>
+                <button id="cancelEditBtn" class="cancel-btn"><i class="fas fa-xmark"></i>Discard</button>
+                <button id="saveEditBtn" class="save-btn"><i class="fas fa-floppy-disk"></i>Save</button>
             </div>
             <div id="textEditorContainer">
                 <textarea id="textEditor" class="text-editor"></textarea>

@@ -87,18 +87,10 @@ export function createTypeCell(file) {
 
 export function createIconButton(iconClass, tooltip) {
   const button = document.createElement("button");
-  button.classList.add("icon-button");
 
   const icon = document.createElement("i");
   icon.classList.add("fas", iconClass);
   button.appendChild(icon);
-
-  /*
-  const tooltipSpan = document.createElement("span");
-  tooltipSpan.classList.add("tooltip");
-  tooltipSpan.innerText = tooltip;
-  button.appendChild(tooltipSpan);
-  */
 
   return button;
 }
@@ -225,8 +217,7 @@ export async function fetchFiles() {
   // update browser history
   window.history.pushState({}, "", `?path=${currentPath.join("/")}`);
   // show last directory in path
-  pathView.innerText = currentPath[currentPath.length - 1] || "root";
-
+  pathView.innerText = "path: /" + (currentPath[currentPath.length - 1] || "root");
 
   let path = currentPath.join("/");
   const response = await Api.fetchFiles(path);
