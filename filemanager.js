@@ -302,7 +302,7 @@ export async function uploadFile(file) {
     showNotification("Database error. Please try again later.");
   }
 
-  fileInput.value = "";
+  hiddenInput.value = "";
 }
 
 export async function createTextFile() {

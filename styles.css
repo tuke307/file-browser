@@ -100,7 +100,6 @@ li {
   gap: 10px;
 }
 
-/* Style the action buttons */
 #file-table td.actions button {
   color: white;
   border: none;
@@ -140,7 +139,7 @@ li {
 .back-btn,
 #createDirButton,
 #createTextFileButton,
-.upload-btn-wrapper {
+#fileUploadButton {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
@@ -237,41 +236,15 @@ li {
   background-color: #b30019;
 }
 
-#uploadFormContainer .upload-btn-wrapper {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
+
+.file-upload {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
 }
 
-#uploadFormContainer .upload-btn-wrapper input[type="file"] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-#uploadFormContainer .btn-text {
-  display: inline-block;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #007bff;
-  cursor: pointer;
-}
-
-#uploadFormContainer .upload-icon {
-  margin-right: 5px;
-}
-
-#uploadFormContainer .btn-text:hover {
-  background-color: #0056b3;
+.file-upload-input {
+  display: none;
 }
 
 #button-container {
@@ -285,27 +258,6 @@ li {
   display: flex;
   align-items: center;
   margin-left: 10px;
-}
-
-.upload-btn-wrapper {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  margin-right: 10px; 
-}
-
-.upload-btn-wrapper input[type="file"] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.upload-icon {
-  margin-right: 5px;
 }
 
 #createDirButton {

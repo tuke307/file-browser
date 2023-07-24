@@ -15,12 +15,16 @@ logoutButton.addEventListener("click", async () => await Authentication.logout()
 
 backButton.addEventListener("click", async () => await Filemanager.goBack());
 
-fileInput.addEventListener("change", async () => {
 
-  const file = fileInput.files[0];
+uploadButton.addEventListener("click", () => hiddenInput.click());
+
+hiddenInput.addEventListener("change", async () => {
+  
+  const file = hiddenInput.files[0];
 
   await Filemanager.uploadFile(file);
 });
+
 
 createDirButton.addEventListener("click", () => toggleVisibility(createDirPopout, true));
 
@@ -34,5 +38,4 @@ cancelEditButton.addEventListener("click", async () => await Filemanager.cancelF
 
 saveEditButton.addEventListener("click", async () => await Filemanager.saveFile());
 
-// override browser history back button
 window.addEventListener("popstate", async () => await Filemanager.goBack());

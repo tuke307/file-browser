@@ -15,8 +15,8 @@ const fileList = document.getElementById("file-list");
 const pathView = document.getElementById("pathView");
 
 // File Upload
-const fileInput = document.getElementById("fileInput");
-const uploadForm = document.getElementById("uploadForm");
+const uploadButton = document.getElementById("fileUploadButton");
+const hiddenInput = document.getElementById("fileUploadInput");
 
 // Dir creation
 const dirNameInput = document.getElementById("dirName");

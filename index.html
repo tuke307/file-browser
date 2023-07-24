@@ -32,12 +32,11 @@
         </div>
 
         <div id="button-container">
-            <div id="uploadFormContainer">
-                <div class="upload-btn-wrapper">
-                    <label for="fileInput" class="btn-text">
-                        <i class="fas fa-upload upload-icon"></i>
-                    </label>
-                    <input type="file" id="fileInput" name="file" style="display: none;" required>
+            <div id="uploadFileFormContainer">
+                <div class="file-upload">
+                    <input id="fileUploadInput" class="file-upload-input" type="file" name="myFile[]" id="myFile" multiple>
+                    <button id="fileUploadButton" class="file-upload-button" type="button"><i class="fas fa-upload upload-icon"></i></button>
+                    <span id="fileUploadLabel" class="file-upload-label"></span>
                 </div>
             </div>
             <div id="createDirFormContainer">
