@@ -10,14 +10,7 @@ function createActionsCell(file) {
   const actionsCell = document.createElement("td");
   actionsCell.classList.add("actions");
 
-  if (file.Type === "dir") {
-    const openButton = createIconButton("fa-folder-open", "Öffnen");
-    openButton.addEventListener(
-      "click",
-      async () => await goToPath(currentPath.length, file.Name)
-    );
-    actionsCell.appendChild(openButton);
-  } else {
+  if (file.Type !== "dir") {
     const downloadButton = createIconButton("fa-download", "Herunterladen");
     downloadButton.addEventListener(
       "click",
@@ -30,12 +23,6 @@ function createActionsCell(file) {
     const editButton = createIconButton("fa-edit", "Bearbeiten");
     editButton.addEventListener("click", async () => await editTextFile(file));
     actionsCell.appendChild(editButton);
-  } else {
-    if (file.Type != "dir") {
-      const viewButton = createIconButton("fa-eye", "Ansehen");
-      viewButton.addEventListener("click", async () => await viewFile(file));
-      actionsCell.appendChild(viewButton);
-    }
   }
 
   const editButton = createIconButton("fa-trash", "Löschen");
@@ -95,8 +82,8 @@ export function createIconButton(iconClass, tooltip) {
   return button;
 }
 
-export async function viewFile(file) {
-  const path = [...currentPath, file.Name].join("/");
+export async function viewFile(name) {
+  const path = [...currentPath, name].join("/");
 
   hideAllViews();
   const response = await Api.downloadFile(path);
@@ -108,19 +95,19 @@ export async function viewFile(file) {
 
     if (contentType.startsWith("image/")) {
       imageViewer.src = url;
-      imageViewer.alt = file.Name;
+      imageViewer.alt = name;
       toggleVisibility(imageViewContainer, true);
     } else if (contentType.startsWith("video/")) {
       videoViewer.src = url;
-      videoViewer.alt = file.Name;
+      videoViewer.alt = name;
       toggleVisibility(videoViewContainer, true);
     } else if (contentType.startsWith("audio/")) {
       audioViewer.src = url;
-      audioViewer.alt = file.Name;
+      audioViewer.alt = name;
       toggleVisibility(audioViewContainer, true);
     } else if (contentType.startsWith("application/pdf")) {
       pdfViewer.src = url;
-      pdfViewer.alt = file.Name;
+      pdfViewer.alt = name;
       toggleVisibility(pdfViewContainer, true);
     }
   } else {
@@ -196,12 +183,8 @@ export async function updateFileList(files) {
   }
 }
 
-export async function goToPath(index, name) {
-  if (name) {
-    currentPath.push(name);
-  } else {
-    currentPath.splice(index + 1);
-  }
+export async function goToPath(name) {
+  currentPath.push(name);
 
   await fetchFiles();
 }
@@ -316,6 +299,9 @@ export async function createTextFile() {
     toggleVisibility(textViewContainer, true);
 
     selectedFile = new Blob([null], { type: "text/plain" });
+    if (!fileName.endsWith(".txt")) {
+      fileName += ".txt";
+    }
     selectedFile.Name = fileName;
   } else {
     showNotification("Please enter a valid file name.");

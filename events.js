@@ -15,7 +15,6 @@ logoutButton.addEventListener("click", async () => await Authentication.logout()
 
 backButton.addEventListener("click", async () => await Filemanager.goBack());
 
-
 uploadButton.addEventListener("click", () => hiddenInput.click());
 
 hiddenInput.addEventListener("change", async () => {
@@ -24,7 +23,6 @@ hiddenInput.addEventListener("change", async () => {
 
   await Filemanager.uploadFile(file);
 });
-
 
 createDirButton.addEventListener("click", () => toggleVisibility(createDirPopout, true));
 
@@ -39,3 +37,16 @@ cancelEditButton.addEventListener("click", async () => await Filemanager.cancelF
 saveEditButton.addEventListener("click", async () => await Filemanager.saveFile());
 
 window.addEventListener("popstate", async () => await Filemanager.goBack());
+
+fileList.addEventListener("click", async (e) => {
+  if (e.target.tagName === 'TD') {
+    const fileName = e.target.parentElement.firstElementChild.textContent;
+    const fileType = e.target.parentElement.firstElementChild.nextElementSibling.textContent;
+
+    if (fileType === "dir") {
+      await Filemanager.goToPath(fileName);
+    } else {
+      await Filemanager.viewFile(fileName);
+    }
+  }
+});

@@ -5,6 +5,10 @@
   position: relative;
 }
 
+body {
+  min-width: 450px;
+}
+
 h1 {
   text-align: center;
 }
@@ -116,6 +120,25 @@ li {
 #file-table td.actions button:active {
   background-color: rgb(96, 81, 81);
 }
+
+#file-table th:nth-child(2),
+#file-table td:nth-child(2) {
+  display: none;
+}
+
+#file-list tr {
+  transition: background-color 0.3s;
+}
+
+#file-list tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+#file-list tr:active {
+  background-color: #d8d8d8;
+}
+
 
 .path-and-back {
   display: flex;
@@ -324,4 +347,9 @@ li {
   color: #fff;
   background-color: #dc3545; 
   cursor: pointer;
+}
+
+#video-view-container {
+  max-height: 80vh;
+  overflow: auto;
 }
