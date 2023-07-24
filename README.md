@@ -48,12 +48,12 @@ Die Verzeichnisse und Dateitypen werden dabei in einer Tabelle dargestellt. Die 
 ## Navigation 
 Die Navigation erfolgt über die `currentPath` Variable. Dort wird der derzeitige Pfad angezeigt.
 
-Die Navigation in einen spezifischen Ordner erfolgt über die `goToPath(index, name)` Funktion.
+Die Navigation in einen spezifischen Ordner erfolgt über die `goToPath(name)` Funktion.
 
 Die Navigation zurück, erfolgt uber die  `goBack()` Funktion.
 
 ## Datei-Handling
-Die Datei Ansicht wird über die `viewFile(file)` Funktion gehandhabt. Je nacht Dateityp wird das dazugehörige HTML-Viewer-Element angezeigt.
+Die Datei Ansicht wird über die `viewFile(name)` Funktion gehandhabt. Je nacht Dateityp wird das dazugehörige HTML-Viewer-Element angezeigt.
 
 
 ## Verzeichnis-Handling
