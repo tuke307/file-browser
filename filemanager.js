@@ -39,7 +39,7 @@ function createActionsCell(file) {
   }
 
   const editButton = createIconButton("fa-trash", "Löschen");
-  editButton.addEventListener("click", async () => await deleteFile(file));
+  editButton.addEventListener("click", async () => await deleteItem(file));
   actionsCell.appendChild(editButton);
 
   return actionsCell;
@@ -170,9 +170,10 @@ export async function downloadFile(file) {
   }
 }
 
-export async function deleteFile(file) {
-  const path = [...currentPath, file.Name].join("/");
+export async function deleteItem(item) {
+  const path = [...currentPath, item.Name].join("/");
 
+  // 
   if (confirm("Are you sure you want to delete this file?")) {
     const response = await Api.deleteItem(path);
 
