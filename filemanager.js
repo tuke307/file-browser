@@ -35,6 +35,9 @@ function createActionsCell(file) {
 export function createRow(file) {
   const row = document.createElement("tr");
 
+  const iconCell = createIconCell(file);
+  row.appendChild(iconCell);
+
   const nameCell = createNameCell(file);
   row.appendChild(nameCell);
 
@@ -45,6 +48,31 @@ export function createRow(file) {
   row.appendChild(actionsCell);
 
   return row;
+}
+
+export function createIconCell(file) {
+  const iconCell = document.createElement("td");
+  const icon = document.createElement("i");
+
+  if (file.Type === "dir") {
+    icon.classList.add("fas", "fa-folder");
+  } else if (file.Type.startsWith("image/")) {
+    icon.classList.add("fas", "fa-image");
+  } else if (file.Type.startsWith("video/")) {
+    icon.classList.add("fas", "fa-video");
+  } else if (file.Type.startsWith("audio/")) {
+    icon.classList.add("fas", "fa-music");
+  } else if (file.Type.startsWith("text/")) {
+    icon.classList.add("fas", "fa-file-alt");
+  } else if (file.Type.startsWith("application/pdf")) {
+    icon.classList.add("fas", "fa-file-pdf");
+  } else {
+    icon.classList.add("fas", "fa-file");
+  }
+
+  iconCell.appendChild(icon);
+
+  return iconCell;
 }
 
 export function createNameCell(file) {
@@ -160,7 +188,6 @@ export async function downloadFile(file) {
 export async function deleteItem(item) {
   const path = [...currentPath, item.Name].join("/");
 
-  // 
   if (confirm("Are you sure you want to delete this file?")) {
     const response = await Api.deleteItem(path);
 

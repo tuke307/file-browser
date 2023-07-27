@@ -40,8 +40,9 @@ window.addEventListener("popstate", async () => await Filemanager.goBack());
 
 fileList.addEventListener("click", async (e) => {
   if (e.target.tagName === 'TD') {
-    const fileName = e.target.parentElement.firstElementChild.textContent;
-    const fileType = e.target.parentElement.firstElementChild.nextElementSibling.textContent;
+    const row = e.target.parentElement;
+    const fileName = row.children[1].textContent;
+    const fileType = row.children[2].textContent;
 
     if (fileType === "dir") {
       await Filemanager.goToPath(fileName);

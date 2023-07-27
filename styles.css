@@ -121,8 +121,20 @@ li {
   background-color: rgb(96, 81, 81);
 }
 
-#file-table th:nth-child(2),
-#file-table td:nth-child(2) {
+/* Erste Spalte (Icon) */
+#file-list td:first-child {
+  flex: 0 0 auto; /* Nimmt nur so viel Platz wie nötig ein */
+  padding-right: 10px;
+}
+
+/* Zweite Spalte (Name) */
+#file-list td:nth-child(2) {
+  flex: 1; 
+}
+
+/* Dritte Spalte (Type) */
+#file-table th:nth-child(3),
+#file-table td:nth-child(3) {
   display: none;
 }
 
@@ -195,18 +207,9 @@ li {
 
 /* Datei- und Verzeichnisstil */
 
-.file-name {
-  font-weight: bold;
-}
-
-.file-type {
-  font-style: italic;
-  color: #777;
-}
-
+.file-name,
 .dir {
   font-weight: bold;
-  color: #007bff;
 }
 
 #createDirPopout {
