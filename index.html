@@ -3,6 +3,7 @@
 
 <head>
     <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -22,11 +23,13 @@
 
     <div class="container" id="file-container" style="display: none;">
         <div class="path-and-back">
-            <button id="backBtn" class="back-btn" title="back"><i class="fas fa-arrow-left"></i> Back</button>
+            <button id="backBtn" class="back-btn" title="back"><i class="fas fa-arrow-left"></i>Back</button>
     
             <div id="path-container">
                 <p id="pathView"></p>
             </div>
+
+            <button id="logoutBtn" class="logout-btn" title="logout"><i class="fas fa-sign-out-alt"></i>Logout</button>
         </div>
 
         <div id="button-container">
@@ -59,15 +62,11 @@
                 <tr>
                     <th></th>
                     <th>Name</th>
-                    <th>Type</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="file-list"></tbody>
         </table>
-
-
-        <button id="logoutBtn" class="logout-btn" title="logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
 
         <div id="text-view-container" style="display: none;">
             <div class="viewer-actions">

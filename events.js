@@ -37,17 +37,3 @@ cancelEditButton.addEventListener("click", async () => await Filemanager.cancelF
 saveEditButton.addEventListener("click", async () => await Filemanager.saveFile());
 
 window.addEventListener("popstate", async () => await Filemanager.goBack());
-
-fileList.addEventListener("click", async (e) => {
-  if (e.target.tagName === 'TD') {
-    const row = e.target.parentElement;
-    const fileName = row.children[1].textContent;
-    const fileType = row.children[2].textContent;
-
-    if (fileType === "dir") {
-      await Filemanager.goToPath(fileName);
-    } else {
-      await Filemanager.viewFile(fileName);
-    }
-  }
-});

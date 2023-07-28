@@ -60,3 +60,7 @@ Die Datei Ansicht wird über die `viewFile(name)` Funktion gehandhabt. Je nacht 
 Verzeichnis löschen mit `deleteItem(item)` Funktion.
 
 Verzeichnis erstellen mit `createDirectory(name)` Funktion.
+
+
+## Datenschutz
+Die Google Fonts wurden lokal eingebunden und sind damit DSGVO konform.

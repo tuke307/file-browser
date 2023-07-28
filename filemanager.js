@@ -8,7 +8,11 @@ let currentPath = [];
 
 function createActionsCell(file) {
   const actionsCell = document.createElement("td");
-  actionsCell.classList.add("actions");
+  
+  const actionsContainer = document.createElement("div");
+  actionsContainer.classList.add("actions");
+
+  actionsCell.appendChild(actionsContainer);
 
   if (file.Type !== "dir") {
     const downloadButton = createIconButton("fa-download", "Herunterladen");
@@ -16,18 +20,18 @@ function createActionsCell(file) {
       "click",
       async () => await downloadFile(file)
     );
-    actionsCell.appendChild(downloadButton);
+    actionsContainer.appendChild(downloadButton);
   }
 
   if (file.Type === "text/plain") {
     const editButton = createIconButton("fa-edit", "Bearbeiten");
     editButton.addEventListener("click", async () => await editTextFile(file));
-    actionsCell.appendChild(editButton);
+    actionsContainer.appendChild(editButton);
   }
 
   const editButton = createIconButton("fa-trash", "Löschen");
   editButton.addEventListener("click", async () => await deleteItem(file));
-  actionsCell.appendChild(editButton);
+  actionsContainer.appendChild(editButton);
 
   return actionsCell;
 }
@@ -41,11 +45,19 @@ export function createRow(file) {
   const nameCell = createNameCell(file);
   row.appendChild(nameCell);
 
-  const typeCell = createTypeCell(file);
-  row.appendChild(typeCell);
-
   const actionsCell = createActionsCell(file);
   row.appendChild(actionsCell);
+
+  row.addEventListener("click", async () => {
+    const fileName = file.Name;
+    const fileType = file.Type;
+
+    if (fileType === "dir") {
+      await goToPath(fileName);
+    } else {
+      await viewFile(fileName);
+    }
+  });
 
   return row;
 }
@@ -88,16 +100,6 @@ export function createNameCell(file) {
   }
 
   return nameCell;
-}
-
-export function createTypeCell(file) {
-  const typeCell = document.createElement("td");
-  const typeSpan = document.createElement("span");
-  typeSpan.innerText = file.Type;
-  typeSpan.classList.add("file-type");
-  typeCell.appendChild(typeSpan);
-
-  return typeCell;
 }
 
 export function createIconButton(iconClass, tooltip) {

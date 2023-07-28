@@ -1,3 +1,21 @@
+/* Fonts /*
+/* poppins-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/poppins-v20-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* poppins-italic - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/poppins-v20-latin-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 /* Allgemeine Stile */
 
 .container {
@@ -6,7 +24,7 @@
 }
 
 body {
-  min-width: 450px;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
@@ -31,7 +49,6 @@ input[type="password"] {
 
 button {
   display: block;
-  margin-top: 10px;
 }
 
 ul {
@@ -97,14 +114,14 @@ li {
   background-color: #f1f1f1;
 }
 
-#file-table td.actions {
+#file-table div.actions {
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#file-table td.actions button {
+#file-table div.actions button {
   color: white;
   border: none;
   border-radius: 4px;
@@ -113,17 +130,18 @@ li {
   cursor: pointer;
 }
 
-#file-table td.actions button:hover {
+#file-table div.actions button:hover {
   background-color: rgb(161, 137, 137);
 }
 
-#file-table td.actions button:active {
+#file-table div.actions button:active {
   background-color: rgb(96, 81, 81);
 }
 
 /* Erste Spalte (Icon) */
 #file-list td:first-child {
-  flex: 0 0 auto; /* Nimmt nur so viel Platz wie nötig ein */
+  width: 0;
+  min-width: fit-content;
   padding-right: 10px;
 }
 
@@ -132,10 +150,10 @@ li {
   flex: 1; 
 }
 
-/* Dritte Spalte (Type) */
-#file-table th:nth-child(3),
-#file-table td:nth-child(3) {
-  display: none;
+/* Dritte Spalte (Name) */
+#file-list td:nth-child(3) {
+  width: 0;
+  min-width: fit-content;
 }
 
 #file-list tr {
@@ -192,12 +210,6 @@ li {
 
 .back-btn {
   margin-right: 10px;
-}
-
-#logoutBtn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
 }
 
 .fa-sign-out-alt,
@@ -352,7 +364,26 @@ li {
   cursor: pointer;
 }
 
+#image-view-container,
 #video-view-container {
-  max-height: 80vh;
-  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  #image-view-container,
+  #video-view-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+#imageViewer,
+#videoViewer {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
 }
